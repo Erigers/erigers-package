@@ -1,4 +1,4 @@
-class Notification {
+class Erigers {
   constructor(options) {
     this.height = options.height || '70px';
     this.width = options.width || '200px';
@@ -10,6 +10,7 @@ class Notification {
     this.left = options.left || '10px';
     this['padding-top'] = options['padding-top'] || '20px';
     this.message = options.message || 'Notification Box';
+    this.className = options.className || 'erigers-notification'
   }
 
   getStyles () {
@@ -31,14 +32,23 @@ class Notification {
     return this.message;
   }
 
-  getBox () {
+  returnNotification () {
     const div = document.createElement('div');
-    div.className = 'erigers-notification-box';
+    div.className = this.className;
     div.innerText = this.getMessage();
     Object.assign(div.style, this.getStyles());
     document.getElementById('app').appendChild(div);
     return;
   }
+
+  notify (options) {
+    for (let key in options) {
+      if (options.hasOwnProperty(key)) {
+        this[key] = options[key];
+      }
+    }
+    return this.returnNotification();
+  }
 }
 
-export default Notification;
+export default new Erigers({});

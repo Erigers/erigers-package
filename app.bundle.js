@@ -69,11 +69,12 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__notification_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__erigers_js__ = __webpack_require__(1);
 
 (function() {
   const options = {message: 'hello aldo'};
-  new __WEBPACK_IMPORTED_MODULE_0__notification_js__["a" /* default */](options).getBox()
+  // new Notification(options).notify()
+  __WEBPACK_IMPORTED_MODULE_0__erigers_js__["a" /* default */].notify();
 })();
 
 /***/ }),
@@ -81,7 +82,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class Notification {
+class Erigers {
   constructor(options) {
     this.height = options.height || '70px';
     this.width = options.width || '200px';
@@ -93,6 +94,7 @@ class Notification {
     this.left = options.left || '10px';
     this['padding-top'] = options['padding-top'] || '20px';
     this.message = options.message || 'Notification Box';
+    this.className = options.className || 'erigers-notification'
   }
 
   getStyles () {
@@ -114,17 +116,26 @@ class Notification {
     return this.message;
   }
 
-  getBox () {
+  returnNotification () {
     const div = document.createElement('div');
-    div.className = 'erigers-notification-box';
+    div.className = this.className;
     div.innerText = this.getMessage();
     Object.assign(div.style, this.getStyles());
     document.getElementById('app').appendChild(div);
     return;
   }
+
+  notify (options) {
+    for (let key in options) {
+      if (options.hasOwnProperty(key)) {
+        this[key] = options[key];
+      }
+    }
+    return this.returnNotification();
+  }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Notification);
+/* harmony default export */ __webpack_exports__["a"] = (new Erigers({}));
 
 /***/ })
 /******/ ]);
