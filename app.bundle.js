@@ -71,10 +71,9 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__notification_js__ = __webpack_require__(1);
 
-// const notification = new Notification({});
 (function() {
-  // console.log(notification.getBox());
-  new __WEBPACK_IMPORTED_MODULE_0__notification_js__["a" /* default */]({}).getBox()
+  const options = {message: 'hello aldo'};
+  new __WEBPACK_IMPORTED_MODULE_0__notification_js__["a" /* default */](options).getBox()
 })();
 
 /***/ }),
@@ -84,7 +83,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 class Notification {
   constructor(options) {
-    this.height = options.height || '100px';
+    this.height = options.height || '70px';
     this.width = options.width || '200px';
     this.background = options.background || 'red';
     this.color = options.color || 'white';
@@ -92,19 +91,35 @@ class Notification {
     this.top = options.top || '10px';
     this.right = options.right || '10px';
     this.left = options.left || '10px';
+    this['padding-top'] = options['padding-top'] || '20px';
+    this.message = options.message || 'Notification Box';
   }
-  getHeight () {
-    return this.height;
-  }
-  getWidth () {
-    return this.width;
-  }
+
   getStyles () {
-    return `width:${this.width};height:${this.height};background:${this.background};color:${this.color}`;
+    return {
+      width: this.width,
+      height: this.height,
+      background: this.background,
+      color: this.color,
+      position: this.position,
+      top: this.top,
+      right: this.right,
+      'padding-top': this['padding-top'],
+      'text-align': 'center',
+      'box-sizing': 'border-box'
+    };
   }
+
+  getMessage () {
+    return this.message;
+  }
+
   getBox () {
-    document.getElementById('app').innerHTML =
-      `<div style="${this.getStyles()}">Hello Aldo</div>`;
+    const div = document.createElement('div');
+    div.className = 'erigers-notification-box';
+    div.innerText = this.getMessage();
+    Object.assign(div.style, this.getStyles());
+    document.getElementById('app').appendChild(div);
     return;
   }
 }

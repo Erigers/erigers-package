@@ -1,5 +1,5 @@
 import Notification from './notification.js';
 (function() {
-  const options = {};
+  const options = {message: 'hello aldo'};
   new Notification(options).getBox()
 })();
